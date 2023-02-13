@@ -5,3 +5,10 @@ STEPS:
 
 A. find the keys:
 
+find / -name authorized_keys 2> /dev/null
+No Result !!!!
+find / -name id_rsa 2> /dev/null
+Found:
+/backups/supersecretkeys/id_rsa
+
+B.

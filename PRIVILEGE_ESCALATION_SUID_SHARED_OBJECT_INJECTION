@@ -29,3 +29,6 @@
 473290   60 -rwsr-xr-x   1 root     root        53648 Jan 25  2011 /bin/umount
 465223  100 -rwsr-xr-x   1 root     root        94992 Dec 13  2014 /sbin/mount.nfs
 
+Now find out shared object in /usr/local/bin/suid-so binary:
+
+strace /usr/local/bin/suid-so 2>&1 | grep -i -E "open|access|no such file"

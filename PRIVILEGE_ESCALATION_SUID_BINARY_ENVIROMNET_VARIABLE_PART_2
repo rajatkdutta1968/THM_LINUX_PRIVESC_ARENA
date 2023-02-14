@@ -49,4 +49,27 @@ t$(L
 |$0H
 /usr/sbin/service apache2 start
 
-3.
+3. the last line seems interesting.
+
+/usr/sbin/service apache2 start
+
+
+4. Get the BASH Version
+
+bash --version
+
+GNU bash, version 4.1.5(1)-release (x86_64-pc-linux-gnu)
+
+
+It has a vulnerability. It accepts pathname as function name. We will exploit this.
+
+EXPLOITATION
+-------------
+(TWO TYPES OF EXPLOITATION IS POSSIBLE)
+
+A. 1st Exploitation
+===================
+
+
+
+

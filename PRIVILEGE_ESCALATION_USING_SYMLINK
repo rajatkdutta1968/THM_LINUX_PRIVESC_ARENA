@@ -68,8 +68,31 @@ We can see that www-data has read write execute permission. So by using symlink,
 We are going to create a malicious symlink, and it will be held to the error.log file.
 
 
-
+*********************************************************************
 ** NOTE: To exploit this vulnerability we need to log in as www-data
+*********************************************************************
+
+LAB:
+
+A. TO START A LINUX VM - Terminal 1
+1. For this exploit, it is required that the user be www-data. To simulate this escalate to root by typing: su root
+2. The root password is password123
+3. Once escalated to root, in command prompt type: su -l www-data
+4. In command prompt type: /home/user/tools/nginx/nginxed-root.sh /var/log/nginx/error.log
+5. At this stage, the system waits for logrotate to execute. In order to speed up the process, this will be simulated by connecting to the Linux VM via a different terminal.
+
+B. TO START A LINUX VM - Terminal 2
+1. Once logged in, type: su root
+2. The root password is password123
+3. As root, type the following: invoke-rc.d nginx rotate >/dev/null 2>&1
+4. Switch back to the previous terminal.
+
+
+Ref: We can download the exploit from following link:
+https://legalhackers.com/advisories/Nginx-Exploit-Deb-Root-PrivEsc-CVE-2016-1247.html
+
+
+
 
 
 

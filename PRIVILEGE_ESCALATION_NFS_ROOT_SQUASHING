@@ -8,8 +8,31 @@ NFS is a Network File Sharing protocol that allows users to share directories an
 It will enable remote systems to be accessible locally when the shares are mounted.
 ** The accessibility of the NFS shares is based on whatever privileges are assigned to the share. **
 
+SCOPE: 
+If NFS is misconfigured we it can provide an attacker with unauthorized access to sensitive data 
 
+/etc/exports: Significance of this option.
+ if you find some directory that is configured as no_root_squash, then you can access it from as a client and write inside that directory as if you
+ were the local root of the machine.
  
+ no_root_squash: This option basically gives authority to the root user on the client to access files on the NFS server as root. And this can lead to
+ serious security implications.
+ 
+ no_all_squash: This is similar to no_root_squash option but applies to non-root users
+ 
+ NOTE ON EXPLOITING for 'no_all-squash' option.
+ Imagine, you have a shell as nobody user; checked /etc/exports file; no_all_squash option is present; check /etc/passwd file; emulate a non-root user; 
+ create a suid file as that user (by mounting using nfs). Execute the suid as nobody user and become different user.
+ 
+ 
+ 
+ 
+ 
+DETECTION:
+
+cat /etc/exports
+
+ GOt following output:
 
 
 
@@ -27,3 +50,8 @@ It will enable remote systems to be accessible locally when the shares are mount
 /tmp *(rw,sync,insecure,no_root_squash,no_subtree_check)
 
 #/tmp *(rw,sync,insecure,no_subtree_check)
+
+
+Note: we've found that no_root_squash option is present for /tmp share.
+
+EXPLOITATION:

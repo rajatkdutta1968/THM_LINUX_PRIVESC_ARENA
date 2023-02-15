@@ -61,7 +61,7 @@ touch /home/user/--checkpoint=1
 
 3. Create another file named --checkpoint-action in /home/user directory
 
-touch /home/user/--checkpoint-action=exec=sh\ runme.sh
+touch /home/user/--checkpoint-action=exec=sh\ rajat.sh
 
 4.Now wait 1 minute for executing bash script
 

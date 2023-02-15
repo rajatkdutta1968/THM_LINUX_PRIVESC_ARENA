@@ -1,3 +1,44 @@
 PRIVILEGE ESCALATION CRON USING WILD CARD
 -----------------------------------------
 
+DETECTION
+(i) 
+cat /etc/crontab
+
+# /etc/crontab: system-wide crontab
+# Unlike any other crontab you don't have to run the `crontab'
+# command to install the new version when you edit this file
+# and files in /etc/cron.d. These files also have username fields,
+# that none of the other crontabs do.
+
+SHELL=/bin/sh
+PATH=/home/user:/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
+
+# m h dom mon dow user  command
+17 *    * * *   root    cd / && run-parts --report /etc/cron.hourly
+25 6    * * *   root    test -x /usr/sbin/anacron || ( cd / && run-parts --report /etc/cron.daily )
+47 6    * * 7   root    test -x /usr/sbin/anacron || ( cd / && run-parts --report /etc/cron.weekly )
+52 6    1 * *   root    test -x /usr/sbin/anacron || ( cd / && run-parts --report /etc/cron.monthly )
+#
+* * * * * root overwrite.sh
+* * * * * root /usr/local/bin/compress.sh
+
+(ii)
+
+Now try to get code of compress.sh
+
+cat /usr/local/bin/compress.sh
+
+#!/bin/sh
+cd /home/user
+tar czf /tmp/backup.tar.gz *
+
+Notice that tar used * for backup from /home/user directory
+
+
+WE WILL EXPLOIT THIS BEHAVIOUR
+
+EXPLOITATION
+------------
+
+1.

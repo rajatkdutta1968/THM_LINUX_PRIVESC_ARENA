@@ -1,4 +1,16 @@
 
+Privilege Escalation using NFS Share
+=====================================
+
+Some Conception:
+
+NFS is a Network File Sharing protocol that allows users to share directories and files over the network across different operating systems.
+It will enable remote systems to be accessible locally when the shares are mounted.
+** The accessibility of the NFS shares is based on whatever privileges are assigned to the share. **
+
+
+ 
+
 
 
 # /etc/exports: the access control list for filesystems which may be exported
